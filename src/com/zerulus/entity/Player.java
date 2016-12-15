@@ -1,4 +1,4 @@
-package com.zerulus.main;
+package com.zerulus.entity;
 
 public class Player 
 {
