@@ -14,8 +14,4 @@ public class Game extends JFrame {
 		pack();
 		setVisible(true);
 	}
-	
-	public static void main(String[] args) {
-		new Game();
-	}
 }
