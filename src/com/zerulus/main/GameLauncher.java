@@ -101,6 +101,12 @@ public class GameLauncher extends Application {
 		ps.show();
 	}
 	
+	
+	/**
+	 * Instead of boolean we could use
+	 * integers to indicate the different type
+	 * of events.
+	 * */
 	public Button setButton(String name, int x, int y, int size, boolean getOption) {
 		
 		Button btn = new Button(name);
