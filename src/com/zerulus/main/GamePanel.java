@@ -15,8 +15,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public static final int SIZE = 2;
 
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	public static int WIDTH;
+	public static int HEIGHT;
 
 	public static int frameCount;
 

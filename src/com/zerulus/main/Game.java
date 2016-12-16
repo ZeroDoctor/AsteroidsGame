@@ -9,7 +9,9 @@ public class Game extends JFrame {
 
 	public Game() {
 		setTitle("New Game");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setResizable(false);
 		setContentPane(new GamePanel());
 		pack();
 		setVisible(true);
