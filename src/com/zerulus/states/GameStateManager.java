@@ -22,8 +22,12 @@ public class GameStateManager extends GameState{
 		//states.push(new MenuState());
 	}
 	
-	public void setState(int i) {
-		states.pop();
+	public void setState(int i, boolean pop) {
+		// This is mainly for PlayState to GUIMenuState
+		if(pop) {
+			states.pop();
+		}
+		
 		/*if(i = 0) states.push(new MenuState());
 		if(i = 1) states.push(new PlayState());
 		if(i = 2) states.push(new ExitState());
