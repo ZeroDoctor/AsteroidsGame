@@ -1,8 +1,16 @@
 package com.zerulus.main;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JPanel;
-import java.awt.*;
-import java.awt.image.*;
+
+import com.zerulus.states.GameStateManager;
+import com.zerulus.util.InputHandler;
+import com.zerulus.util.MouseHandler;
 
 public class GamePanel extends JPanel implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -17,6 +25,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public static int WIDTH;
 	public static int HEIGHT;
+	
+	private GameStateManager gsm;
+	private InputHandler keys;
+	private MouseHandler mouse;
 
 	public static int frameCount;
 
@@ -39,7 +51,11 @@ public class GamePanel extends JPanel implements Runnable {
 		running = true;
 		img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
 		g = (Graphics2D) img.getGraphics();
-
+		
+		gsm = new GameStateManager();
+		keys = new InputHandler(this);
+		mouse = new MouseHandler(this);
+		
 	}
 
 	public void run() {
@@ -74,7 +90,7 @@ public class GamePanel extends JPanel implements Runnable {
             if(now - lastUpdateTime > TBU) {
                 lastUpdateTime = now - TBU;
             }
-            input();
+            input(keys, mouse);
             render();
             draw();
             lastRenderTime = now;
@@ -103,11 +119,11 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void update() {
-		
+		gsm.update();
 	}
 
-	public void input() {
-		
+	public void input(InputHandler keys, MouseHandler mouse) {
+		gsm.input(keys, mouse);
 	}
 
 	public void render() {
@@ -117,6 +133,8 @@ public class GamePanel extends JPanel implements Runnable {
 		} else {
 			System.out.println("g is null");
 		}
+		
+		gsm.render(g);
 
 	}
 
