@@ -102,6 +102,10 @@ public class GameLauncher extends Application {
 	}
 	
 	
+	public void fullScreen() {
+		
+	}
+	
 	/**
 	 * Instead of boolean we could use
 	 * integers to indicate the different type
