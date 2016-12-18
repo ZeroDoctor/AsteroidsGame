@@ -47,6 +47,7 @@ public class InputHandler implements KeyListener {
     public Key volUp = new Key();
     public Key volDown = new Key();
     public Key mute = new Key();
+    public Key escape = new Key();
 
     public void releaseAll() {
         for (int i = 0; i < keys.size(); i++) {
@@ -101,6 +102,8 @@ public class InputHandler implements KeyListener {
         if (ke.getKeyCode() == KeyEvent.VK_SLASH) mute.toggle(pressed);
         if (ke.getKeyCode() == KeyEvent.VK_PERIOD) volUp.toggle(pressed);
         if (ke.getKeyCode() == KeyEvent.VK_COMMA) volDown.toggle(pressed);
+        
+        if(ke.getKeyCode() == KeyEvent.VK_ESCAPE) escape.toggle(pressed);
     }
 
     public void keyTyped(KeyEvent ke) {

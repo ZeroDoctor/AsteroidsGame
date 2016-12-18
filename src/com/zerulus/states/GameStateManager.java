@@ -19,7 +19,7 @@ public class GameStateManager extends GameState{
 	public GameStateManager() {
 		super(gsm);
 		states = new Stack<GameState>();
-		//states.push(new MenuState());
+		states.push(new MenuState(this));
 	}
 	
 	public void setState(int i, boolean pop) {
@@ -28,11 +28,11 @@ public class GameStateManager extends GameState{
 			states.pop();
 		}
 		
-		/*if(i = 0) states.push(new MenuState());
-		if(i = 1) states.push(new PlayState());
-		if(i = 2) states.push(new ExitState());
-		if(i = 3) states.push(new GUIMenuState()); 
-		if(i = 4) states.push(new GameOverState());*/
+		if(i == 0) states.push(new MenuState(this));
+		//if(i == 1) states.push(new PlayState());
+		//if(i == 2) states.push(new ExitState());
+		//if(i == 3) states.push(new GUIMenuState()); 
+		//if(i == 4) states.push(new GameOverState());
 		
 	}
 	
@@ -42,6 +42,10 @@ public class GameStateManager extends GameState{
 	
 	public void input(InputHandler keys, MouseHandler mouse) {
 		states.peek().input(keys, mouse);
+		
+		if(keys.escape.down) {
+			System.exit(0);
+		}
 	}
 	
 	public void render(Graphics2D g) {
