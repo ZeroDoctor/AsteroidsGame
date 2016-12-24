@@ -29,7 +29,7 @@ public class GameStateManager extends GameState{
 		}
 		
 		if(i == 0) states.push(new MenuState(this));
-		//if(i == 1) states.push(new PlayState());
+		if(i == 1) states.push(new PlayState(this));
 		//if(i == 2) states.push(new ExitState());
 		//if(i == 3) states.push(new GUIMenuState()); 
 		//if(i == 4) states.push(new GameOverState());
