@@ -41,8 +41,6 @@ public class Player
 	private AffineTransformOp op;
 	private AffineTransform tx;
 	
-	private BufferedImage result;
-	
 	public Player() {
 		vec = new Vector2i(GamePanel.WIDTH / 2 - size / 2, GamePanel.HEIGHT / 2 - size / 2);
 		rotate(0);
