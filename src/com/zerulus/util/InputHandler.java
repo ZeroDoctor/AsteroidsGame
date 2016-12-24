@@ -44,6 +44,7 @@ public class InputHandler implements KeyListener {
     public Key right = new Key();
     public Key attack = new Key();
     public Key menu = new Key();
+    public Key enter = new Key();
     public Key volUp = new Key();
     public Key volDown = new Key();
     public Key mute = new Key();
@@ -94,7 +95,7 @@ public class InputHandler implements KeyListener {
         if (ke.getKeyCode() == KeyEvent.VK_CONTROL) attack.toggle(pressed);
         if (ke.getKeyCode() == KeyEvent.VK_NUMPAD0) attack.toggle(pressed);
         if (ke.getKeyCode() == KeyEvent.VK_INSERT) attack.toggle(pressed);
-        if (ke.getKeyCode() == KeyEvent.VK_ENTER) menu.toggle(pressed);
+        if (ke.getKeyCode() == KeyEvent.VK_ENTER) enter.toggle(pressed);
 
         if (ke.getKeyCode() == KeyEvent.VK_X) menu.toggle(pressed);
         if (ke.getKeyCode() == KeyEvent.VK_C) attack.toggle(pressed);
