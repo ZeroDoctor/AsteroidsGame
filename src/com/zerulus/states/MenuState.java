@@ -81,6 +81,15 @@ public class MenuState extends GameState {
 
 	@Override
 	public void input(InputHandler keys, MouseHandler mouse) {
+		if(keys.enter.down) {
+			if(options == PLAY) {
+				gsm.setState(GameStateManager.PLAY, true);
+			}
+			if(options == QUIT) {
+				System.exit(0);
+			}
+		}
+		
 		keys.tick();
 		if(keys.up.clicked) {
 			if(options == PLAY) {
