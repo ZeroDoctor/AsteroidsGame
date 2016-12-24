@@ -1,5 +1,6 @@
 package com.zerulus.entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -27,14 +28,14 @@ public class Player
 	private Vector2i vec;
 	private int dx;
 	private int dy;
-	private int size = 20;
+	private int size = 32;
 	
 	public boolean up;
 	public boolean down;
 	public boolean left;
 	public boolean right;
 	
-	private int maxSpeed = 32;
+	private int maxSpeed = 20;
 	private int acc = 3;
 	private int deacc = 1;
 	
@@ -103,7 +104,7 @@ public class Player
 	
 	public void rotate(double angle) {
 		double rotation = angle;
-		tx = AffineTransform.getRotateInstance(-rotation, size, size);
+		tx = AffineTransform.getRotateInstance(-rotation, size / 2, size / 2);
 		if(tx == null)
 			System.out.println("Nah");
 		
@@ -127,6 +128,7 @@ public class Player
 	}
 	
 	public void render(Graphics2D g) {
+		
 		if(img_player != null) {
 			g.drawImage(op.filter(img_player, null), vec.x, vec.y, null);
 		} else {
