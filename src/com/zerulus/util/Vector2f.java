@@ -1,24 +1,45 @@
 package com.zerulus.util;
 
-public class Vector2i {
+public class Vector2f {
 
-	public int x;
-	public int y;
+	public float x;
+	public float y;
 	
-	public static int worldX;
-	public static int worldY;
+	public static float worldX;
+	public static float worldY;
 	
-	public Vector2i() {
+	public Vector2f() {
 		x = 0;
 		y = 0;
 	}
 	
-	public Vector2i(int x, int y) {
+	public Vector2f(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
 	
-	public static void setWorldVar(int x, int y) {
+	public void addX(float x) { this.x += x; }
+	public void addY(float y) { this.y += y;}
+	
+	public void setX(float x) {
+		this.x = x;
+	}
+	
+	public void setY(float y) {
+		this.y = y;
+	}
+	
+	public void setVector(Vector2f vec) {
+		this.x = vec.x;
+		this.y = vec.y;
+	}
+	
+	public void setVector(float x, float y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public static void setWorldVar(float x, float y) {
 		worldX = x;
 		worldY = y;
 	}
