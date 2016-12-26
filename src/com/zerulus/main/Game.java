@@ -1,7 +1,6 @@
 package com.zerulus.main;
 
-import javax.swing.*;
-
+import javax.swing.JFrame;
 
 public class Game extends JFrame {
 	
@@ -10,10 +9,10 @@ public class Game extends JFrame {
 	public Game() {
 		setTitle("New Game");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setResizable(false);
 		setContentPane(new GamePanel());
 		pack();
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 }
