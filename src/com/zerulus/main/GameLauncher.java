@@ -47,7 +47,7 @@ public class GameLauncher extends Application {
 		btnExit = setButton("Exit", 200, 100, 150, false);
 		
 		lbRez = setLabel("Resolution: ", 300, 25, Color.WHITE, Font.font(12));
-		ObservableList<String> options = FXCollections.observableArrayList("640x480","800x600","1024x768","1280x960","1920x1440");
+		ObservableList<String> options = FXCollections.observableArrayList("640x480","800x600","1024x768","1280x960","1920x1080");
 		cbRez = new ComboBox<>(options);
 		
 		cbRez.setLayoutX(WIDTH / 2 - 300);
