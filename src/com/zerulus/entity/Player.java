@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import com.zerulus.main.GamePanel;
 import com.zerulus.util.Animation;
 import com.zerulus.util.Sprite;
-import com.zerulus.util.Vector2i;
+import com.zerulus.util.Vector2f;
 
 public class Player 
 {
@@ -25,9 +25,9 @@ public class Player
 	private Animation stay = new Animation(staying, 10);
 	private Animation startUP = new Animation(startingUp, 10);
 	
-	private Vector2i vec;
-	private int dx;
-	private int dy;
+	private Vector2f vec;
+	private float dx;
+	private float dy;
 	private int size = 32;
 	
 	public boolean up;
@@ -35,15 +35,15 @@ public class Player
 	public boolean left;
 	public boolean right;
 	
-	private int maxSpeed = 20;
-	private int acc = 3;
-	private int deacc = 1;
+	private float maxSpeed = 20;
+	private float acc = 1.5f;
+	private float deacc = 0.5f;
 	
 	private AffineTransformOp op;
 	private AffineTransform tx;
 	
 	public Player() {
-		vec = new Vector2i(GamePanel.WIDTH / 2 - size / 2, GamePanel.HEIGHT / 2 - size / 2);
+		vec = new Vector2f(GamePanel.WIDTH / 2 - size / 2, GamePanel.HEIGHT / 2 - size / 2);
 		rotate(0);
 	}
 	
@@ -116,13 +116,11 @@ public class Player
 		
 		move();
 		
-		
 		rotate(Math.atan2(vec.x - mouseX, vec.y - mouseY));
 		
 		vec.x += dx;
 		vec.y += dy;
 
-		
 		img_player = stay.getSprite();
 		stay.start();
 	}
@@ -130,9 +128,9 @@ public class Player
 	public void render(Graphics2D g) {
 		
 		if(img_player != null) {
-			g.drawImage(op.filter(img_player, null), vec.x, vec.y, null);
+			g.drawImage(op.filter(img_player, null), (int) vec.x, (int) vec.y, null);
 		} else {
-			g.drawImage(img_player, vec.x, vec.y, size, size, null);
+			g.drawImage(img_player, (int) vec.x, (int) vec.y, size, size, null);
 		}
 		
 	}
