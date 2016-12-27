@@ -7,6 +7,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 import com.zerulus.main.GamePanel;
+import com.zerulus.util.AABB;
 import com.zerulus.util.Animation;
 import com.zerulus.util.Sprite;
 import com.zerulus.util.Vector2f;
@@ -39,11 +40,14 @@ public class Player
 	private float acc = 1.5f;
 	private float deacc = 0.5f;
 	
+	public AABB playerBounds;
+	
 	private AffineTransformOp op;
 	private AffineTransform tx;
 	
 	public Player() {
 		vec = new Vector2f(GamePanel.WIDTH / 2 - size / 2, GamePanel.HEIGHT / 2 - size / 2);
+		playerBounds = new AABB(vec, size, size);
 		rotate(0);
 	}
 	
@@ -113,13 +117,14 @@ public class Player
 	
 	public void update(int mouseX, int mouseY) {
 		
-		
 		move();
 		
 		rotate(Math.atan2(vec.x - mouseX, vec.y - mouseY));
 		
 		vec.x += dx;
 		vec.y += dy;
+		
+		playerBounds.setBox(vec, size, size);
 
 		img_player = stay.getSprite();
 		stay.start();
@@ -131,8 +136,7 @@ public class Player
 			g.drawImage(op.filter(img_player, null), (int) vec.x, (int) vec.y, null);
 		} else {
 			g.drawImage(img_player, (int) vec.x, (int) vec.y, size, size, null);
-		}
-		
+		}		
 	}
 }
 
