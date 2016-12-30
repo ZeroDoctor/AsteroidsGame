@@ -12,8 +12,16 @@ import sun.applet.Main;
 public class Sprite {
 	private BufferedImage spriteSheet;
 	private final int TILE_SIZE = 32;
+	private int w;
+	private int h;
 	
 	public Sprite(String file) {
+		spriteSheet = loadSprite(Main.class.getResourceAsStream(file));
+		h = TILE_SIZE;
+		w = TILE_SIZE;
+	}
+	
+	public Sprite(String file, int w, int h) {
 		spriteSheet = loadSprite(Main.class.getResourceAsStream(file));
 	}
 	
@@ -42,12 +50,16 @@ public class Sprite {
 		
 	}
 	
+	public BufferedImage getSprite() {
+		return spriteSheet;
+	}
+	
 	public BufferedImage getSprite(int xGrid, int yGrid){
 		if (spriteSheet == null) {
 			spriteSheet = loadSprite(Main.class.getResourceAsStream("AnimationSpriteSheet"));
 		}
 		
-		return spriteSheet.getSubimage(xGrid * TILE_SIZE, yGrid * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+		return spriteSheet.getSubimage(xGrid * w, yGrid * h, w, h);
 	}
 
 }
