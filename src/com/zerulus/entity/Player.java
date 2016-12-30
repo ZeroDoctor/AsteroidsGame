@@ -1,6 +1,5 @@
 package com.zerulus.entity;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -26,30 +25,35 @@ public class Player
 	private Animation stay = new Animation(staying, 10);
 	private Animation startUP = new Animation(startingUp, 10);
 	
-	private Vector2f vec;
+	public Vector2f vec;
 	private float dx;
 	private float dy;
-	private int size = 32;
+	public int size = 32;
+	
+	private float maxSpeed = 20;
+	private float acc = 1f;
+	private float deacc = 0.2f;
+	private int life = 3;
 	
 	public boolean up;
 	public boolean down;
 	public boolean left;
 	public boolean right;
 	
-	private float maxSpeed = 20;
-	private float acc = 1.5f;
-	private float deacc = 0.5f;
-	
 	public AABB playerBounds;
 	
 	private AffineTransformOp op;
 	private AffineTransform tx;
 	
+	public double rotation;
+	
 	public Player() {
 		vec = new Vector2f(GamePanel.WIDTH / 2 - size / 2, GamePanel.HEIGHT / 2 - size / 2);
 		playerBounds = new AABB(vec, size, size);
-		rotate(0);
 	}
+	
+	public float getDx() { return dx; }
+	public float getDy() { return dy; }
 	
 	public void move() {
 		if(up) {
@@ -106,37 +110,50 @@ public class Player
 		}
 	}
 	
-	public void rotate(double angle) {
-		double rotation = angle;
-		tx = AffineTransform.getRotateInstance(-rotation, size / 2, size / 2);
-		if(tx == null)
-			System.out.println("Nah");
-		
-		op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-	}
-	
 	public void update(int mouseX, int mouseY) {
+		
+		img_player = stay.getSprite();
+		stay.start();
 		
 		move();
 		
-		rotate(Math.atan2(vec.x - mouseX, vec.y - mouseY));
+		op = stay.rotate(Math.atan2(vec.x - mouseX, vec.y - mouseY), size, size);
 		
 		vec.x += dx;
 		vec.y += dy;
 		
+		/**
+		 * We could split the image when the player goes above or below
+		 * the "play area", so it can create the illusion of looping. 
+		 * This will do for now.
+		 * */
+		
+		if(vec.y  > GamePanel.HEIGHT) {
+			vec.y = 0;
+		}
+		if(vec.y < 0) {
+			vec.y = GamePanel.HEIGHT;
+		}
+		
+		if(vec.x > GamePanel.WIDTH) {
+			vec.x = 0;
+		}
+		if(vec.x < 0) {
+			vec.x = GamePanel.WIDTH;
+		}
+		
 		playerBounds.setBox(vec, size, size);
 
-		img_player = stay.getSprite();
-		stay.start();
+		
 	}
 	
 	public void render(Graphics2D g) {
+		if(op == null) System.out.println("OP is null");
 		
-		if(img_player != null) {
-			g.drawImage(op.filter(img_player, null), (int) vec.x, (int) vec.y, null);
-		} else {
+		if(img_player == null) 
 			g.drawImage(img_player, (int) vec.x, (int) vec.y, size, size, null);
-		}		
+		else
+			g.drawImage(op.filter(img_player, null), (int) vec.x, (int) vec.y, null);
 	}
 }
 
