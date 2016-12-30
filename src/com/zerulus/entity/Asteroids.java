@@ -13,6 +13,7 @@ public class Asteroids {
 	private double angle;
 	private double speed;
 	private Vector2f vec;
+	private int id;
 	
 	public AABB asterBounds;
 	
@@ -21,13 +22,14 @@ public class Asteroids {
 		size = 64;
 		speed = 0;
 		angle = 0;
-		
+		id = 1;
 		asterBounds = new AABB(vec, size);
 	}
 	
 	public Asteroids(int id, Vector2f vec, double angle) {
 		this.vec = vec;
 		this.angle = angle;
+		this.id = id;
 		
 		if(id == 1) {
 			size = 64;
@@ -41,17 +43,37 @@ public class Asteroids {
 			size = 16;
 			speed = 8;
 		}
+		
+		asterBounds = new AABB(vec, size);
 	}
+	
+	public int getID() { return id; }
+	public Vector2f getPos() { return vec; }
 	
 	public void update() {
 		vec.x += Math.cos(Math.toRadians(angle)) * speed;
 		vec.y += Math.sin(Math.toRadians(angle)) * speed;
+		
+		if(vec.y  > GamePanel.HEIGHT) {
+			vec.y = -size;
+		}
+		if(vec.y < -size) {
+			vec.y = GamePanel.HEIGHT;
+		}
+		
+		if(vec.x > GamePanel.WIDTH) {
+			vec.x = -size;
+		}
+		if(vec.x < -size) {
+			vec.x = GamePanel.WIDTH;
+		}
+		
 		asterBounds.setCircle(vec, size);
 	}
 	
 	public void render(Graphics2D g) {
 		g.setColor(Color.white);
-		g.fillOval((int) vec.x, (int) vec.y, size, size);
+		g.drawOval((int) vec.x, (int) vec.y, size, size);
 	}
 	
 }
