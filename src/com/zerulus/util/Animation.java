@@ -1,6 +1,8 @@
 //code used from http://gamedev.stackexchange.com/questions/53705/how-can-i-make-a-sprite-sheet-based-animation-system
 package com.zerulus.util;
 
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,11 @@ public class Animation {
     	this.currentFrame = 0;
     	this.animationDirection = 1;
     	this.totalFrames = this.frames.size();
+    }
+    
+    public AffineTransformOp rotate(double angle, int w, int h) {
+    	AffineTransform tx = AffineTransform.getRotateInstance(-angle, w / 2, h / 2);
+    	return new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
     }
     
     public void start() {
