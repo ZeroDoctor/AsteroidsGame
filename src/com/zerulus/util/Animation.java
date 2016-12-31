@@ -38,6 +38,11 @@ public class Animation {
     	return new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
     }
     
+    public boolean lastFrame() {
+    	if(currentFrame == frames.size()) return true;
+    	else return false;
+    }
+    
     public void start() {
     	if (!stopped) {
     		return;
