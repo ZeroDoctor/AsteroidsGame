@@ -26,7 +26,7 @@ public class PlayState extends GameState {
 	private int mouseY;
 	
 	private int recoverTick;
-	private int doneRecover = 85;
+	private int doneRecover = 120;
 	private int bulletTick;
 	private int tick;
 	private int create = 5;
@@ -88,6 +88,15 @@ public class PlayState extends GameState {
 		}
 	}
 	
+	public void recovering() {
+		if(recover) {
+			if(recoverTick >= doneRecover) {
+				recover = false;
+				recoverTick = 0;
+			}
+		} 
+	}
+	
 	public void addAsteroids(int id, float x1, float y1, int total) {
 		float x2, y2;
 		for(int i = 0; i < total; i++) {
@@ -105,15 +114,7 @@ public class PlayState extends GameState {
 		}
 	}
 	
-	public void recovering() {
-		if(recover) {
-			if(recoverTick >= doneRecover) {
-				recover = false;
-				recoverTick = 0;
-			}
-		} 
-	}
-
+	
 	@Override
 	public void update() {
 		p.update(mouseX, mouseY);
@@ -126,6 +127,7 @@ public class PlayState extends GameState {
 				if(!recover) {
 					playerLife--;
 					recover = true;
+					recoverTick = 0;
 				}
 			}
 		}
@@ -183,6 +185,7 @@ public class PlayState extends GameState {
 		tick++;
 		bulletTick++;
 		recoverTick++;
+		
 		
 	}
 
