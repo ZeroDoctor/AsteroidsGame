@@ -83,10 +83,21 @@ public class Sprite {
 		return num;
 	}
 	
+	/*######################## drawArray ########################*/
 	public static void drawArray(Graphics2D g, BufferedImage[] img, Vector2f vec, int width, int height, int xOffset, int yOffset) {
 		float x = vec.x;
 		float y = vec.y;
 		for(int i = 0; i < img.length; i++) {
+			g.drawImage(img[i], (int) x, (int) y, width, height, null);
+			x += xOffset;
+			y += yOffset;
+		}
+	}
+	
+	public static void drawArray(Graphics2D g, BufferedImage[] img, Vector2f vec, int width, int height, int xOffset, int yOffset, int length) {
+		float x = vec.x;
+		float y = vec.y;
+		for(int i = 0; i < length; i++) {
 			g.drawImage(img[i], (int) x, (int) y, width, height, null);
 			x += xOffset;
 			y += yOffset;
