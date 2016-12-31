@@ -22,8 +22,8 @@ import sun.applet.Main;
 
 public class GameLauncher extends Application {
 	
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 600;
+	public int WIDTH = 800;
+	public int HEIGHT = 600;
 	
 	private Button btnPlay;
 	private Button btnExit;
