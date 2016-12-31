@@ -28,6 +28,8 @@ public class MenuState extends GameState {
 	private BufferedImage[] img_quit;
 	private BufferedImage[] img_aster;
 	
+	public static Sprite spr_font;
+	
 	private Vector2f vecAster;
 	private Vector2f vecPlay;
 	private Vector2f vecQuit;
@@ -45,7 +47,7 @@ public class MenuState extends GameState {
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
 		
-		Sprite spr_font = new Sprite("/Game/font.png");
+		spr_font = new Sprite("/Game/font.png");
 		
 		vecAster = new Vector2f(GamePanel.WIDTH / 2 - (("ASTEROIDS".length() * 64) / 2), 100);
 		vecPlay = new Vector2f(GamePanel.WIDTH / 2 - (("PLAY".length() * 32) / 2), GamePanel.HEIGHT - (GamePanel.HEIGHT / 2));
@@ -59,15 +61,7 @@ public class MenuState extends GameState {
 		
 	}
 	
-	public void drawArray(Graphics2D g, BufferedImage[] img, Vector2f vec, int width, int height, int xOffset, int yOffset) {
-		float x = vec.x;
-		float y = vec.y;
-		for(int i = 0; i < img.length; i++) {
-			g.drawImage(img[i], (int) x, (int) y, width, height, null);
-			x += xOffset;
-			y += yOffset;
-		}
-	}
+	
 	
 	public void animate() {
 		//Ill come back to this is make it better
@@ -124,9 +118,9 @@ public class MenuState extends GameState {
 	@Override
 	public void render(Graphics2D g) {
 		
-		drawArray(g, img_play, vecPlay, sizeGen, sizeGen, sizeGen, 0);
-		drawArray(g, img_highscore, vecHighscore, sizeGen, sizeGen, sizeGen, 0);
-		drawArray(g, img_quit, vecQuit, sizeGen, sizeGen, sizeGen, 0);
+		Sprite.drawArray(g, img_play, vecPlay, sizeGen, sizeGen, sizeGen, 0);
+		Sprite.drawArray(g, img_highscore, vecHighscore, sizeGen, sizeGen, sizeGen, 0);
+		Sprite.drawArray(g, img_quit, vecQuit, sizeGen, sizeGen, sizeGen, 0);
 		
 		g.setColor(new Color(0, 0, 0, alpha));
 		g.fillRect((int) vecPlay.x, (int) vecPlay.y, "Play".length() * sizeGen, "Play".length() * sizeGen);
@@ -134,7 +128,7 @@ public class MenuState extends GameState {
 		g.fillRect((int) vecQuit.x, (int) vecQuit.y, "Quit".length() * sizeGen, "Quit".length() * sizeGen);
 		
 		
-		drawArray(g, img_aster, vecAster, sizeAster, sizeAster, sizeAster, 0);
+		Sprite.drawArray(g, img_aster, vecAster, sizeAster, sizeAster, sizeAster, 0);
 		
 		if(!animate) {
 			g.setColor(Color.white);
