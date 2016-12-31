@@ -49,6 +49,9 @@ public class Asteroids {
 	
 	public int getID() { return id; }
 	public Vector2f getPos() { return vec; }
+	public float getX() { return vec.x; }
+	public float getY() { return vec.y; }
+	
 	
 	public void update() {
 		vec.x += Math.cos(Math.toRadians(angle)) * speed;
