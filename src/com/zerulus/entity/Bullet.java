@@ -54,8 +54,9 @@ public class Bullet extends Rectangle {
 		double dx = vec3.x - x2;
 		double dy = vec3.y - y2;
 		double rad = Math.atan2(dy, dx);
+		
 		//Still working on bullet rotations
-		op = rotate.rotate(rad + 3.14 / 2, w, h);
+		op = rotate.rotate(-rad - Math.PI / 2, w, h);
 		
 		vec.x += (Math.cos(rad) * (20 + pxSpeed));
 		vec.y += (Math.sin(rad) * (20 + pySpeed));
