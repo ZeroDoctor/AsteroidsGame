@@ -1,7 +1,6 @@
 package com.zerulus.entity;
 
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
@@ -19,11 +18,12 @@ public class Player
 	private BufferedImage[] staying = {spr_ship.getSprite(0, 0)};
 	private BufferedImage[] startingUp = {spr_ship.getSprite(1, 0), spr_ship.getSprite(2, 0), spr_ship.getSprite(0, 1), spr_ship.getSprite(1, 1), spr_ship.getSprite(2, 1)};
 	
-	private BufferedImage img_player;
+	public BufferedImage img_player;
 	
 	private Animation flyUp = new Animation(flyingUp, 10);
 	private Animation stay = new Animation(staying, 10);
-	private Animation startUP = new Animation(startingUp, 10);
+	private Animation startUP = new Animation(startingUp, 3);
+	private Animation animation = stay;
 	
 	public Vector2f vec;
 	private float dx;
@@ -33,7 +33,6 @@ public class Player
 	private float maxSpeed = 20;
 	private float acc = 1f;
 	private float deacc = 0.2f;
-	private int life = 3;
 	
 	public boolean up;
 	public boolean down;
@@ -43,7 +42,6 @@ public class Player
 	public AABB playerBounds;
 	
 	private AffineTransformOp op;
-	private AffineTransform tx;
 	
 	public double rotation;
 	
@@ -110,10 +108,29 @@ public class Player
 		}
 	}
 	
+	//this need more work
+	public void animations() {
+		if(dx == 0 && dy == 0) {
+			animation.stop();
+			animation.reset();
+			animation = stay;
+		} else if(!startUP.lastFrame()) {
+			animation = startUP;
+			animation.start();
+		} else {
+			animation = flyUp;
+			animation.start();
+		}
+	}
+	
 	public void update(int mouseX, int mouseY) {
 		
 		img_player = stay.getSprite();
 		stay.start();
+		
+		animations();
+		
+		animation.update();
 		
 		move();
 		
@@ -151,9 +168,9 @@ public class Player
 		if(op == null) System.out.println("OP is null");
 		
 		if(img_player == null) 
-			g.drawImage(img_player, (int) vec.x, (int) vec.y, size, size, null);
+			g.drawImage(animation.getSprite(), (int) vec.x, (int) vec.y, size, size, null);
 		else
-			g.drawImage(op.filter(img_player, null), (int) vec.x, (int) vec.y, null);
+			g.drawImage(op.filter(animation.getSprite(), null), (int) vec.x, (int) vec.y, null);
 	}
 }
 
