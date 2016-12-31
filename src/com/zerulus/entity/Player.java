@@ -5,6 +5,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 import com.zerulus.main.GamePanel;
+import com.zerulus.states.PlayState;
 import com.zerulus.util.AABB;
 import com.zerulus.util.Animation;
 import com.zerulus.util.Sprite;
@@ -18,7 +19,7 @@ public class Player
 	private BufferedImage[] staying = {spr_ship.getSprite(0, 0)};
 	private BufferedImage[] startingUp = {spr_ship.getSprite(1, 0), spr_ship.getSprite(2, 0), spr_ship.getSprite(0, 1), spr_ship.getSprite(1, 1), spr_ship.getSprite(2, 1)};
 	
-	public BufferedImage img_player;
+	public BufferedImage img_player = staying[0];
 	
 	private Animation flyUp = new Animation(flyingUp, 10);
 	private Animation stay = new Animation(staying, 10);
@@ -167,10 +168,16 @@ public class Player
 	public void render(Graphics2D g) {
 		if(op == null) System.out.println("OP is null");
 		
-		if(img_player == null) 
+		if(img_player == null || op == null) 
 			g.drawImage(animation.getSprite(), (int) vec.x, (int) vec.y, size, size, null);
 		else
 			g.drawImage(op.filter(animation.getSprite(), null), (int) vec.x, (int) vec.y, null);
+		
+		if(PlayState.recover) {
+			if(GamePanel.frameCount % 30 >= 15) {
+				g.fillRect((int) vec.x, (int) vec.y, size + 5, size + 5);
+			}
+		}
 	}
 }
 
