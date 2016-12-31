@@ -25,10 +25,19 @@ public class PlayState extends GameState {
 	private int mouseX;
 	private int mouseY;
 	
+	private int recoverTick;
+	private int doneRecover = 85;
 	private int bulletTick;
 	private int tick;
 	private int create = 5;
 	private boolean canCreate = true;
+	public static boolean recover = false;
+	
+	private int playerLife = 3;
+	private BufferedImage[] img_player;
+	
+	private BufferedImage[] img_life;
+	private int sizeLife = 20;
 	
 	private Integer score = 0;
 	private ArrayList<BufferedImage> numScore;
@@ -36,6 +45,11 @@ public class PlayState extends GameState {
 	
 	private BufferedImage[] img_score;
 	private int sizeScore = 20;
+	
+	private Vector2f vecScore = new Vector2f((float)25, (float) 25);
+	private Vector2f vecNumScore = new Vector2f(5*20 + 30, 24);
+	private Vector2f vecLife;
+	private Vector2f vecLifePlayer;
 	
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
@@ -47,6 +61,17 @@ public class PlayState extends GameState {
 		
 		img_score = MenuState.spr_font.getFont("SCORE");
 		numScore = MenuState.spr_font.getFont(score);
+		
+		img_life = MenuState.spr_font.getFont("LIFE");
+		img_player = new BufferedImage[3];
+		img_player[0] = p.img_player;
+		img_player[1] = p.img_player;
+		img_player[2] = p.img_player;
+		
+		if(p.img_player == null) { System.out.println("sos"); }
+		
+		vecLife = new Vector2f((5*20 + 30) + (numScore.size() * sizeNum) + 50, 25);
+		vecLifePlayer = new Vector2f((5 * 20 + 30) + (numScore.size() * sizeNum) + (4 * 20 + 30) + 50, 25); 
 		
 		addAsteroids(1, (float) -1, -1, 3);
 	}
@@ -79,15 +104,29 @@ public class PlayState extends GameState {
 			asteroids.add(new Asteroids(id, new Vector2f(x2, y2), (double) rand.nextInt(360)));
 		}
 	}
+	
+	public void recovering() {
+		if(recover) {
+			if(recoverTick >= doneRecover) {
+				recover = false;
+				recoverTick = 0;
+			}
+		} 
+	}
 
 	@Override
 	public void update() {
 		p.update(mouseX, mouseY);
 		
+		recovering();
+		
 		for(int i = 0; i < asteroids.size(); i++) {
 			asteroids.get(i).update();
 			if(check.colCircletoBox(p.playerBounds, asteroids.get(i).asterBounds)) {
-				System.out.println("OUCH!!!");
+				if(!recover) {
+					playerLife--;
+					recover = true;
+				}
 			}
 		}
 		
@@ -130,8 +169,8 @@ public class PlayState extends GameState {
 		
 		//for every x / 60 seconds make a group asteroids
 		// x := the amount of updates
-		if(tick % 210 == 0 || asteroids.size() == 0) {
-			addAsteroids(1, -1, -1, rand.nextInt(4 + ((int) (tick / 360))));
+		if(tick % 290 == 0 || asteroids.size() == 0) {
+			addAsteroids(1, -1, -1, rand.nextInt(2 + ((int) (tick / 360)) + 1));
 		}
 		
 		
@@ -143,12 +182,12 @@ public class PlayState extends GameState {
 		
 		tick++;
 		bulletTick++;
+		recoverTick++;
 		
 	}
 
 	@Override
 	public void render(Graphics2D g) {
-		
 		for(int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).render(g);
 		}
@@ -159,9 +198,14 @@ public class PlayState extends GameState {
 			asteroids.get(i).render(g);
 		}
 		
-		Sprite.drawArray(g, img_score, new Vector2f((float)25, (float) 25), sizeScore, sizeScore, sizeScore, 0);
-		Sprite.drawArray(g, numScore, new Vector2f(5*20 + 30, 24), sizeNum, sizeNum, sizeNum, 0);
+		Sprite.drawArray(g, img_score, vecScore, sizeScore, sizeScore, sizeScore, 0);
+		Sprite.drawArray(g, numScore, vecNumScore, sizeNum, sizeNum, sizeNum, 0);
 		
+		vecLife.setX((5*20 + 30) + (numScore.size() * sizeNum) + 50);
+		vecLifePlayer.setX((5 * 20 + 30) + (numScore.size() * sizeNum) + (4 * 20 + 30) + 50);
+		
+		Sprite.drawArray(g, img_life, vecLife, sizeLife, sizeLife, sizeLife, 0);
+		Sprite.drawArray(g, img_player, vecLifePlayer, sizeLife, sizeLife, sizeLife, 0, playerLife);
 	}
 
 	@Override
