@@ -84,6 +84,7 @@ public class MenuState extends GameState {
 			}
 			
 			if(vecAster.y >= GamePanel.HEIGHT) {
+				animate = false;
 				gsm.setState(1, true);
 			}
 			
@@ -139,7 +140,9 @@ public class MenuState extends GameState {
 
 	@Override
 	public void input(InputHandler keys, MouseHandler mouse) {
-		if(keys.enter.down) {
+		keys.tick();
+		
+		if(keys.enter.clicked) {
 			if(options == PLAY) {
 				animate = true;
 			}
@@ -148,7 +151,6 @@ public class MenuState extends GameState {
 			}
 		}
 		
-		keys.tick();
 		if(keys.up.clicked) {
 			if(options == PLAY) {
 				options = QUIT;

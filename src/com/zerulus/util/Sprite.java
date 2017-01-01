@@ -59,7 +59,12 @@ public class Sprite {
 		
 		for(int i = 0; i < word.length(); i++) {
 			int a = word.charAt(i);
-			img_word[i] = spriteSheet.getSubimage(((a - 65) % 6) * 48, ((int) ((a - 65) / 6)) * 48, 48, 48);
+			if(a != 32) {
+				img_word[i] = spriteSheet.getSubimage(((a - 65) % 6) * 48, ((int) ((a - 65) / 6)) * 48, 48, 48);
+			} else {
+				img_word[i] = null;
+			}
+			
 		}
 		
 		return img_word;
@@ -88,7 +93,9 @@ public class Sprite {
 		float x = vec.x;
 		float y = vec.y;
 		for(int i = 0; i < img.length; i++) {
-			g.drawImage(img[i], (int) x, (int) y, width, height, null);
+			if(img[i] != null)
+				g.drawImage(img[i], (int) x, (int) y, width, height, null);
+			
 			x += xOffset;
 			y += yOffset;
 		}

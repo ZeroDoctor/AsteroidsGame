@@ -29,11 +29,11 @@ public class PlayState extends GameState {
 	private int doneRecover = 120;
 	private int bulletTick;
 	private int tick;
-	private int create = 5;
+	private int create = 10;
 	private boolean canCreate = true;
 	public static boolean recover = false;
 	
-	private int playerLife = 3;
+	private int playerLife = 1;
 	private BufferedImage[] img_player;
 	
 	private BufferedImage[] img_life;
@@ -63,10 +63,11 @@ public class PlayState extends GameState {
 		numScore = MenuState.spr_font.getFont(score);
 		
 		img_life = MenuState.spr_font.getFont("LIFE");
-		img_player = new BufferedImage[3];
-		img_player[0] = p.img_player;
-		img_player[1] = p.img_player;
-		img_player[2] = p.img_player;
+		img_player = new BufferedImage[playerLife];
+		
+		for(int i = 0; i < playerLife; i++) {
+			img_player[i] = p.img_player;
+		}
 		
 		if(p.img_player == null) { System.out.println("sos"); }
 		
@@ -130,6 +131,12 @@ public class PlayState extends GameState {
 					recoverTick = 0;
 				}
 			}
+		}
+		
+		if(playerLife <= 0) {
+			//new GameOverState(gsm);
+			gsm.setState(4, true);
+			recover = false;
 		}
 		
 		for(int i = 0; i < bullets.size(); i++) {
