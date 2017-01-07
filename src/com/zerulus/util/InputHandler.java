@@ -97,9 +97,6 @@ public class InputHandler implements KeyListener {
         if (ke.getKeyCode() == KeyEvent.VK_INSERT) attack.toggle(pressed);
         if (ke.getKeyCode() == KeyEvent.VK_ENTER) enter.toggle(pressed);
 
-        if (ke.getKeyCode() == KeyEvent.VK_X) menu.toggle(pressed);
-        if (ke.getKeyCode() == KeyEvent.VK_C) attack.toggle(pressed);
-
         if (ke.getKeyCode() == KeyEvent.VK_SLASH) mute.toggle(pressed);
         if (ke.getKeyCode() == KeyEvent.VK_PERIOD) volUp.toggle(pressed);
         if (ke.getKeyCode() == KeyEvent.VK_COMMA) volDown.toggle(pressed);

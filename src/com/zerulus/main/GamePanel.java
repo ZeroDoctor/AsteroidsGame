@@ -110,7 +110,6 @@ public class GamePanel extends JPanel implements Runnable {
                 //This stops the app from consuming all your CPU. It makes this slightly less accurate, but is worth it.
                 //You can remove this line and it will still work (better), your CPU just climbs on certain OSes.
                 //FYI on some OS's this can cause pretty bad stuttering.
-                //Scroll down and have a look at different peoples' solutions to this.
                 try {Thread.sleep(1);} catch(Exception e) { System.out.print("Error in Thread-1");}
 
                 now = System.nanoTime();

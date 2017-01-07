@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import com.zerulus.main.GamePanel;
+import com.zerulus.util.File;
 import com.zerulus.util.InputHandler;
 import com.zerulus.util.MouseHandler;
 import com.zerulus.util.Sprite;
@@ -145,6 +146,9 @@ public class MenuState extends GameState {
 		if(keys.enter.clicked) {
 			if(options == PLAY) {
 				animate = true;
+			}
+			if(options == SCORE) {
+				System.out.println(File.read());
 			}
 			if(options == QUIT) {
 				System.exit(0);

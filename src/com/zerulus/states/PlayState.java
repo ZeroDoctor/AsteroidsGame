@@ -10,6 +10,7 @@ import com.zerulus.entity.Bullet;
 import com.zerulus.entity.Player;
 import com.zerulus.main.GamePanel;
 import com.zerulus.util.AABB;
+import com.zerulus.util.File;
 import com.zerulus.util.InputHandler;
 import com.zerulus.util.MouseHandler;
 import com.zerulus.util.Sprite;
@@ -33,14 +34,14 @@ public class PlayState extends GameState {
 	private boolean canCreate = true;
 	public static boolean recover = false;
 	
-	private int playerLife = 1;
+	private int playerLife = 3;
 	private BufferedImage[] img_player;
 	
 	private BufferedImage[] img_life;
 	private int sizeLife = 20;
 	
-	private Integer score = 0;
-	private ArrayList<BufferedImage> numScore;
+	public static Integer score = 0;
+	public static ArrayList<BufferedImage> numScore;
 	private int sizeNum = 20;
 	
 	private BufferedImage[] img_score;
@@ -136,6 +137,7 @@ public class PlayState extends GameState {
 		if(playerLife <= 0) {
 			//new GameOverState(gsm);
 			gsm.setState(4, true);
+			File.write(score.toString());
 			recover = false;
 		}
 		

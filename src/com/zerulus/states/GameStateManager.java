@@ -24,10 +24,7 @@ public class GameStateManager extends GameState{
 	
 	public void setState(int i, boolean pop) {
 		// This is mainly for PlayState to GUIMenuState
-		if(pop) {
-			states.pop();
-			System.out.println("pop!");
-		}
+		pop(pop);
 		
 		if(i == 0) states.push(new MenuState(this));
 		if(i == 1) states.push(new PlayState(this));
@@ -35,8 +32,12 @@ public class GameStateManager extends GameState{
 		//if(i == 3) states.push(new GUIMenuState()); 
 		if(i == 4) states.push(new GameOverState(this));
 		
-		System.out.println(states.size());
-		
+	}
+	
+	public void pop(boolean b) {
+		if(states.size() <= 0) {
+			states.pop();
+		}
 	}
 	
 	public void update() {

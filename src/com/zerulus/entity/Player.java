@@ -125,10 +125,7 @@ public class Player
 	}
 	
 	public void update(int mouseX, int mouseY) {
-		
-		img_player = stay.getSprite();
-		stay.start();
-		
+
 		animations();
 		
 		animation.update();

@@ -25,6 +25,8 @@ public class Sprite {
 	
 	public Sprite(String file, int w, int h) {
 		spriteSheet = loadSprite(Main.class.getResourceAsStream(file));
+		this.w = w;
+		this.h = h;
 	}
 	
 	public BufferedImage loadSprite(InputStream file) {
